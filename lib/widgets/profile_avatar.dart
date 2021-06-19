@@ -5,8 +5,13 @@ import 'package:flutter_facebook_responsive_ui/config/palette.dart';
 class ProfileAvatar extends StatelessWidget {
   final String imageUrl;
   final bool isActive;
+  final bool hasBorder;
 
-  const ProfileAvatar({Key key, @required this.imageUrl, this.isActive = false})
+  const ProfileAvatar(
+      {Key key,
+      @required this.imageUrl,
+      this.isActive = false,
+      this.hasBorder = false})
       : super(key: key);
 
   @override
@@ -14,10 +19,14 @@ class ProfileAvatar extends StatelessWidget {
     return Stack(
       children: [
         CircleAvatar(
-          backgroundColor: Colors.grey[200],
           radius: 20.0,
-          backgroundImage: CachedNetworkImageProvider(
-            imageUrl,
+          backgroundColor: Palette.facebookBlue,
+          child: CircleAvatar(
+            backgroundColor: Colors.grey[200],
+            radius: hasBorder ? 17.0 : 20,
+            backgroundImage: CachedNetworkImageProvider(
+              imageUrl,
+            ),
           ),
         ),
         isActive
