@@ -50,7 +50,7 @@ class CreatePostContainer extends StatelessWidget {
                 ),
                 const VerticalDivider(
                   width: 8.0,
-                  thickness: 1.0,
+                  thickness: 0.8,
                 ),
                 TextButton.icon(
                   onPressed: () {
@@ -64,7 +64,7 @@ class CreatePostContainer extends StatelessWidget {
                 ),
                 const VerticalDivider(
                   width: 8.0,
-                  thickness: 1.0,
+                  thickness: 0.8,
                 ),
                 TextButton.icon(
                   onPressed: () {
