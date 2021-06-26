@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_responsive_ui/config/palette.dart';
 import 'package:flutter_facebook_responsive_ui/models/models.dart';
 import 'package:flutter_facebook_responsive_ui/widgets/profile_avatar.dart';
+import 'package:flutter_facebook_responsive_ui/widgets/responsive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class PostContainer extends StatelessWidget {
@@ -11,40 +12,49 @@ class PostContainer extends StatelessWidget {
   const PostContainer({Key key, @required this.post}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5.0),
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
-      color: Colors.white,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _postHeader(post: post),
-                const SizedBox(
-                  height: 4.0,
-                ),
-                Text(post.caption),
-                const SizedBox(
-                  height: 5.0,
-                )
-              ],
+    bool isDesktop = Responsive.isDesktop(context);
+    return Card(
+      margin: isDesktop
+          ? EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0)
+          : EdgeInsets.symmetric(horizontal: 0.0),
+      elevation: isDesktop ? 1.0 : null,
+      shape: isDesktop
+          ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))
+          : null,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        color: Colors.white,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _postHeader(post: post),
+                  const SizedBox(
+                    height: 4.0,
+                  ),
+                  Text(post.caption),
+                  const SizedBox(
+                    height: 5.0,
+                  )
+                ],
+              ),
             ),
-          ),
-          post.imageUrl != null
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: CachedNetworkImage(imageUrl: post.imageUrl),
-                )
-              : SizedBox.shrink(),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
-            child: _postStats(post: post),
-          )
-        ],
+            post.imageUrl != null
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: CachedNetworkImage(imageUrl: post.imageUrl),
+                  )
+                : SizedBox.shrink(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+              child: _postStats(post: post),
+            )
+          ],
+        ),
       ),
     );
   }
